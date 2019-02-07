@@ -4758,7 +4758,7 @@ class EC2Connection(AWSQueryConnection):
             self.build_filter_params(params, filters)
         return self.get_list('DescribePrivateIpAddresses', params, [('item', PrivateIP)], verb='POST')
 
-    def allocate_private_ip(self, subnet_id, private_ip_address=None, availability_zone=None):
+    def allocate_private_ip(self, subnet_id, private_ip_address=None):
         """
         Allocate Private IP in specified Security Group.
 
@@ -4771,18 +4771,12 @@ class EC2Connection(AWSQueryConnection):
                                    allocate a specific available IP address
                                    (e.g., 10.0.0.25).
 
-        :type availability_zone: string
-        :param availability_zone: The availability zone in which pivate IP
-                                  address should be allocated
-
         :rtype: :class:`boto.ec2.private_ip.PrivateIP`
         :return: The newly allocated Private IP Address
         """
         params = {'SubnetId': subnet_id}
         if private_ip_address is not None:
             params['PrivateIpAddress'] = private_ip_address
-        if availability_zone is not None:
-            params['AvailabilityZone'] = availability_zone
         return self.get_object('AllocatePrivateIpAddress', params, PrivateIP, verb='POST')
 
     def delete_private_ip_address(self, private_ip_address_id):

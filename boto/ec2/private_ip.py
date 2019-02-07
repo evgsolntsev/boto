@@ -34,7 +34,6 @@ class PrivateIP(EC2Object):
         self.id = None
         self.subnet_id = None
         self.state = None
-        self.availability_zone = None
         self.private_ip_address = None
         self.ip_address = None
         self.public_dns_name = None
@@ -49,8 +48,6 @@ class PrivateIP(EC2Object):
             self.subnet_id = value
         elif name == 'state':
             self.state = value
-        elif name == 'availabilityZone':
-            self.availability_zone = value
         elif name == 'privateIpAddress':
             self.private_ip_address = value
         elif name == 'ipAddress':
